@@ -156,8 +156,58 @@ int main(int argc, char** argv) {
 				}
 			}
 		}
+			//per stampare le cartelle aggiornate
+		cout<< "Giocatore 1"<<endl;
+		for(int i=0; i<3; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				if(estratti[cart1[i][j]] ==1)
+				{
+					cout<<" X ";
+				}else if(cart1[i][j] < 10)
+				{
+					cout<< " "<<cart1[i][j]<<" ";
+				}else
+				{
+					cout<<cart1[i][j]<<" ";
+				}
+			}
+			cout<<endl;
+		}
+		cout<< "Giocatore 2"<<endl;
+		for(int i=0; i<3; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				if(estratti[cart2[i][j]] ==1)
+				{
+					cout<<" X ";
+				}else if(cart2[i][j] < 10)
+				{
+					cout<< " "<<cart2[i][j]<<" ";
+				}else
+				{
+					cout<<cart2[i][j]<<" ";
+				}
+			}
+			cout<<endl;
+		}
+		if(v1==1)
+		{
+			cout<<"tombola, vince il giocatore 1"<<endl;
+			break;
+		}
+		if(v2==1)
+		{
+			cout<<"tombola, vince il giocatore 2"<<endl;
+			break;
+		}
+		cout<<"premi invio per estrarre il prossimo numero: ";
+		cin.get();
+	}
 	
 	
 	return 0;
 }
-
+		
