@@ -122,6 +122,40 @@ int main(int argc, char** argv) {
 	}
 	cout<<"Premi invio per iniziare l'estrazione dei numeri";
 	cin.get();
+
+	//Estrazione numeri
+	
+	while(1)
+	{
+		int numero, v1=1, v2=1;
+		do
+		{
+			numero=rand()%90+1;
+		}while( estratti[numero]==1 );
+		
+		estratti[numero]=1;
+		cout<<"il numero estratto e': "<<numero<<endl;		
+		//controllo tombola	
+		for(int i=0; i<3; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				if(estratti[cart1[i][j]] ==0)
+				{
+					v1=0;
+				}
+			}
+		}
+		for(int i=0; i<3; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				if(estratti[cart2[i][j]] ==0)
+				{
+					v2=0;
+				}
+			}
+		}
 	
 	
 	return 0;
