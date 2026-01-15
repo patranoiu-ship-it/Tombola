@@ -1,10 +1,8 @@
-tombola
-
+esercizio tombola
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-
 
 int main(int argc, char** argv) {
 
@@ -13,33 +11,26 @@ int main(int argc, char** argv) {
     int cart1[3][9] = {0};
     int cart2[3][9] = {0};
     int estratti[91] = {0};
-  
 
-    //Generazione cartella 1 
+    
+    // Generazione cartella 1
+    
     for(int i = 0; i < 3; i++) {
-  
         int inseriti = 0;
 
         while(inseriti < 5) {
-
             int numero, colonna, valido = 1;
 
             numero = rand() % 90 + 1;
 
             if(numero == 90)
-            {
-            	colonna = 8;
-			}
+                colonna = 8;
             else
-            {
-            	colonna = numero / 10;
-			}
-                
-            // colonna già occupata nella riga
+                colonna = numero / 10;
+
             if(cart1[i][colonna] != 0)
                 valido = 0;
 
-            // numero già presente nella cartella
             for(int z = 0; z < 3; z++)
                 for(int k = 0; k < 9; k++)
                     if(cart1[z][k] == numero)
@@ -52,13 +43,13 @@ int main(int argc, char** argv) {
         }
     }
 
-    //Generazione cartella 2 
+    
+    // Generazione cartella 2
+    
     for(int i = 0; i < 3; i++) {
-
         int inseriti = 0;
 
         while(inseriti < 5) {
-
             int numero, colonna, valido = 1;
 
             numero = rand() % 90 + 1;
@@ -83,38 +74,8 @@ int main(int argc, char** argv) {
         }
     }
 
-    //stampaggio cartelle
-    cout << "Cartella giocatore 1"<<endl;
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 9; j++) {
-            if(cart1[i][j] == 0)
-                cout << "   ";
-            else if(cart1[i][j] < 10)
-                cout << " " << cart1[i][j] << " ";
-            else
-                cout << cart1[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout<<endl;
-
-    cout << "Cartella giocatore 2"<<endl;
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 9; j++) {
-            if(cart2[i][j] == 0)
-                cout << "   ";
-            else if(cart2[i][j] < 10)
-                cout << " " << cart2[i][j] << " ";
-            else
-                cout << cart2[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-    cout << "Premi INVIO per iniziare l'estrazione";
-    cin.get();
-
-    //Estrazione numeri
+    // Estrazione numeri
+    
     while(1) {
 
         int numero, v1 = 1, v2 = 1;
@@ -122,34 +83,42 @@ int main(int argc, char** argv) {
         do {
             numero = rand() % 90 + 1;
         } while(estratti[numero] == 1);
-system("cls"); 
+
         estratti[numero] = 1;
-        cout << "Il numero estratto e': " << numero << endl;
 
-        // controllo tombola
-        for(int i = 0; i < 3; i++){  
-            for(int j = 0; j < 9; j++){
-                if(cart1[i][j] != 0 && estratti[cart1[i][j]] == 0)
-                    v1 = 0;
-           }
+        system("cls");
+
+        // Tabellone tombola
+
+        cout << "TABELLONE TOMBOLA\n";
+        for(int n = 1; n <= 90; n++) {
+
+            if(estratti[n] == 1)
+                cout << "\033[32m";
+            else
+                cout << "\033[0m";
+
+            if(n < 10)
+                cout << " " << n << " ";
+            else
+                cout << n << " ";
+
+            if(n % 10 == 0)
+                cout << endl;
         }
+        cout << "\033[0m\n";
 
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 9; j++){
-                if(cart2[i][j] != 0 && estratti[cart2[i][j]] == 0)
-                    v2 = 0;
-            }
-        }
-        cout<<endl;
+        cout << "\nNumero estratto: \033[32m" << numero << "\033[0m\n\n";
 
-        // stampa aggiornata
-        cout << "Giocatore 1"<<endl;
-        for(int i = 0; i < 3; i++) {   
+        // Cartella giocatore 1
+
+        cout << "Cartella giocatore 1\n";
+        for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 9; j++) {
                 if(cart1[i][j] == 0)
                     cout << "   ";
                 else if(estratti[cart1[i][j]] == 1)
-                    cout << " X ";
+                    cout << "\033[32m X \033[0m";
                 else if(cart1[i][j] < 10)
                     cout << " " << cart1[i][j] << " ";
                 else
@@ -157,35 +126,47 @@ system("cls");
             }
             cout << endl;
         }
-        cout<<endl;
 
-        cout << "Giocatore 2"<<endl;
-        for(int i = 0; i < 3; i++) { 
+        // Cartella giocatore 2 
+
+        cout << "\nCartella giocatore 2\n";
+        for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 9; j++) {
                 if(cart2[i][j] == 0)
                     cout << "   ";
                 else if(estratti[cart2[i][j]] == 1)
-                    cout << " X ";
+                    cout << "\033[32m X \033[0m";
                 else if(cart2[i][j] < 10)
                     cout << " " << cart2[i][j] << " ";
                 else
                     cout << cart2[i][j] << " ";
-            }     
+            }
             cout << endl;
         }
 
+        // Controllo tombola
+
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 9; j++)
+                if(cart1[i][j] != 0 && estratti[cart1[i][j]] == 0)
+                    v1 = 0;
+
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 9; j++)
+                if(cart2[i][j] != 0 && estratti[cart2[i][j]] == 0)
+                    v2 = 0;
+
         if(v1 == 1) {
-            cout << "tombola, vince il giocatore 1"<<endl;
+            cout << "\nTOMBOLA! Vince il giocatore 1\n";
             break;
         }
         if(v2 == 1) {
-            cout << "tombola, vince il giocatore 2"<<endl;
+            cout << "\nTOMBOLA! Vince il giocatore 2\n";
             break;
         }
 
-        cout << "\nPremi INVIO per estrarre il prossimo numero";
-        cin.get();
+        system("pause");
     }
-  
+
     return 0;
 }
